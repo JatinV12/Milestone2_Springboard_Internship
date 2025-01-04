@@ -1,6 +1,6 @@
 # Strategic HR Analytics Dshboard Milestone 2 - Basic Preprocessing and basic visualizations
 
-This README provides an overview of the steps taken to handle imbalanced and missing values in the HR Analytics dataset.
+
 
 ## Issues Identified
 
