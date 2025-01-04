@@ -1,3 +1,6 @@
+
+![image](https://github.com/user-attachments/assets/e397b353-d1cd-4f44-ba75-307ea2990e96)
+
 # Strategic HR Analytics Dashboard Milestone 2 - Basic Preprocessing and basic visualizations
 
 
