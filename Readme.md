@@ -1,4 +1,4 @@
-# Strategic HR Analytics Dshboard Milestone 2 - Basic Preprocessing and basic visualizations
+# Strategic HR Analytics Dashboard Milestone 2 - Basic Preprocessing and basic visualizations
 
 
 ## Issues Identified
