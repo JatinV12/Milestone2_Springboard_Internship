@@ -1,61 +1,101 @@
 # Strategic HR Analytics Dshboard Milestone 2 - Basic Preprocessing and basic visualizations
 
 
-
 ## Issues Identified
 
-### 1. Imbalanced Values
-- **Column**: `BusinessTravel`
-- **Issue**: Found inconsistent values such as `travel_rarely` and `TravelRarely`, which should represent the same category.
 
-### 2. Missing Values
-- **Column**: `YearsWithCurrManager`
-- **Issue**: Identified 57 missing values.
+### Replacing Numeric Values with Descriptive Strings
+Several columns had numeric values representing categories. These were replaced with descriptive string values using DAX calculated columns in Power BI:
 
-## Steps Taken
+1. **Education**:
+   ```DAX
+   EducationCategory = SWITCH(EmployeeTable[Education],
+       1, "Below College",
+       2, "College",
+       3, "Bachelor",
+       4, "Master",
+       5, "Doctor")
+   ```
 
-### Handling Imbalanced Values
-- **Problem**: The `BusinessTravel` column contained inconsistent representations of the same category.
-- **Solution**:
-  - Standardized all text values by creating a calculated column in Power BI using DAX:
-    ```DAX
-    StandardizedTravel = SWITCH(TRUE(),
-        LOWER(EmployeeTable[BusinessTravel]) = "travelrarely", "travel_rarely",
-        LOWER(EmployeeTable[BusinessTravel]) = "travelfrequently", "travel_frequently",
-        EmployeeTable[BusinessTravel])
-    ```
+2. **EnvironmentSatisfaction**:
+   ```DAX
+   EnvSatisfactionCategory = SWITCH(EmployeeTable[EnvironmentSatisfaction],
+       1, "Low",
+       2, "Medium",
+       3, "High",
+       4, "Very High")
+   ```
 
-### Treating Missing Values
-- **Column**: `YearsWithCurrManager`
-- **Problem**: There were 57 missing values in this column.
-- **Solution**:
-  - Used a DAX calculated column to fill missing values with the median value:
-    ```DAX
-    FilledYearsWithManager = IF(ISBLANK(EmployeeTable[YearsWithCurrManager]),
-        MEDIANX(EmployeeTable, EmployeeTable[YearsWithCurrManager]),
-        EmployeeTable[YearsWithCurrManager])
-    ```
+3. **JobInvolvement**:
+   ```DAX
+   JobInvolvementCategory = SWITCH(EmployeeTable[JobInvolvement],
+       1, "Low",
+       2, "Medium",
+       3, "High",
+       4, "Very High")
+   ```
+
+4. **JobSatisfaction**:
+   ```DAX
+   JobSatisfactionCategory = SWITCH(EmployeeTable[JobSatisfaction],
+       1, "Low",
+       2, "Medium",
+       3, "High",
+       4, "Very High")
+   ```
+
+5. **PerformanceRating**:
+   ```DAX
+   PerformanceCategory = SWITCH(EmployeeTable[PerformanceRating],
+       1, "Low",
+       2, "Good",
+       3, "Excellent",
+       4, "Outstanding")
+   ```
+
+6. **RelationshipSatisfaction**:
+   ```DAX
+   RelationshipCategory = SWITCH(EmployeeTable[RelationshipSatisfaction],
+       1, "Low",
+       2, "Medium",
+       3, "High",
+       4, "Very High")
+   ```
+
+7. **WorkLifeBalance**:
+   ```DAX
+   WorkLifeBalanceCategory = SWITCH(EmployeeTable[WorkLifeBalance],
+       1, "Bad",
+       2, "Good",
+       3, "Better",
+       4, "Best")
+   ```
+
 
 ## Summary of Changes
 
 | Column               | Issue                         | Action Taken                    | Missing Values Before | Missing Values After |
 |----------------------|-------------------------------|----------------------------------|-----------------------|----------------------|
-| BusinessTravel       | Imbalanced values            | Standardized categories         | N/A                   | N/A                  |
-| YearsWithCurrManager | Missing values (57 entries)  | Filled with median value        | 57                    | 0                    |
+| Education            | Numeric values               | Replaced with descriptive text  | N/A                   | N/A                  |
+| EnvironmentSatisfaction | Numeric values            | Replaced with descriptive text  | N/A                   | N/A                  |
+| JobInvolvement       | Numeric values               | Replaced with descriptive text  | N/A                   | N/A                  |
+| JobSatisfaction      | Numeric values               | Replaced with descriptive text  | N/A                   | N/A                  |
+| PerformanceRating    | Numeric values               | Replaced with descriptive text  | N/A                   | N/A                  |
+| RelationshipSatisfaction | Numeric values           | Replaced with descriptive text  | N/A                   | N/A                  |
+| WorkLifeBalance      | Numeric values               | Replaced with descriptive text  | N/A                   | N/A                  |
 
 ## Updated Dataset Insights
-- **BusinessTravel**: Cleaned and standardized to three categories: `travel_rarely`, `travel_frequently`, and `non-travel`.
-- **YearsWithCurrManager**: No missing values remain; the median value ensures continuity and data consistency.
+- **Categorical Columns**: Numeric codes replaced with meaningful descriptive strings for better readability.
 
 ## Basic Visualizations
 
 To better understand the data, the following visualizations were created in Power BI:
 
-1. **Bar Chart**:
-   - Displayed the distribution of `BusinessTravel` categories to ensure proper standardization.
+1. **Line Chart**:
+   - Analyzed the relationship between `EmployeeCount` and `Age` to observe patterns in employee age.
 
 2. **Histogram**:
-   - Visualized the distribution of `YearsWithCurrManager` to identify and verify the effect of filling missing values.
+   - Visualized the distribution of `JobRole` with respect to  `EmployeeCount`.
 
 3. **Pie Chart**:
    - Showed the proportions of `Attrition` categories (Yes/No) to identify trends.
@@ -63,14 +103,7 @@ To better understand the data, the following visualizations were created in Powe
 4. **Scatter Plot**:
    - Analyzed the relationship between `MonthlyIncome` and `Age` to observe patterns in employee demographics.
 
-## Tools and Techniques Used
-- **Power BI**:
-  - Created DAX measures and calculated columns to handle imbalanced and missing values.
-  - Designed interactive visualizations to gain insights into the cleaned dataset.
-  - Suggested DAX measures for checking missing values:
-    ```DAX
-    MissingValues_Column = COUNTROWS(FILTER(EmployeeTable, ISBLANK(EmployeeTable[YearsWithCurrManager])))
-    ```
+
 
 
 ## Repository Structure
@@ -80,5 +113,4 @@ To better understand the data, the following visualizations were created in Powe
 |-- README.md                         # Documentation
 |-- HR_Analytics.csv                  # Dataset
 ```
-
 Thank You!!
